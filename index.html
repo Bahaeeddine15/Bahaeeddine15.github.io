@@ -76,7 +76,7 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; text-wrap: balance; }
 
 /* Left column */
 .side {
-  position: sticky; top: 0; height: calc(100vh / var(--z, 1)); overflow-y: auto; scrollbar-width: none;
+  position: sticky; top: 0; align-self: start; min-height: calc(100vh / var(--z, 1));
   padding-block: 72px 44px;
   display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
   min-width: 0;
@@ -300,9 +300,6 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
   .nav { margin-top: 20px; }
   .nav a { padding: 4px 0; }
 }
-@media (min-width: 1024px) and (max-height: 700px) {
-  .pitch { display: none; }
-}
 /* Large monitors: scale the whole layout up */
 @media (min-width: 1800px) { .layout { --z: 1.15; zoom: 1.15; } }
 @media (min-width: 2300px) { .layout { --z: 1.35; zoom: 1.35; } }
@@ -334,7 +331,7 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
 
 @media (max-width: 1023px) {
   .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  .side { position: static; height: auto; padding-block: 48px 24px; }
+  .side { position: static; height: auto; min-height: 0; padding-block: 48px 24px; }
   .nav { display: none; }
   .main { padding-top: 40px; }
   section { padding-bottom: 80px; }
@@ -715,11 +712,27 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
     }, { rootMargin: '-35% 0px -60% 0px' });
     Object.keys(map).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
 
-    var side = document.querySelector('.side');
-    if (mbar && side) {
-      new IntersectionObserver(function (es) { mbar.classList.toggle('show', !es[0].isIntersecting); }, { threshold: 0 }).observe(side);
+    var side0 = document.querySelector('.side');
+    if (mbar && side0) {
+      new IntersectionObserver(function (es) { mbar.classList.toggle('show', !es[0].isIntersecting); }, { threshold: 0 }).observe(side0);
     }
   }
+
+  /* If the left column is taller than the window, let it scroll with the page
+     until its bottom is visible, then keep it there. */
+  var side = document.querySelector('.side');
+  var layout = document.querySelector('.layout');
+  function fitSide() {
+    if (!side) return;
+    if (window.innerWidth < 1024) { side.style.top = ''; return; }
+    var z = parseFloat(getComputedStyle(layout).getPropertyValue('--z')) || 1;
+    var vh = window.innerHeight / z;
+    side.style.top = Math.min(0, vh - side.offsetHeight) + 'px';
+  }
+  fitSide();
+  window.addEventListener('resize', fitSide);
+  window.addEventListener('load', fitSide);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSide);
 
   var photo = document.getElementById('photo');
   if (photo) {
