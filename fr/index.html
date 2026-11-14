@@ -6,17 +6,22 @@
 <meta name="theme-color" content="#0a0c16">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bahae Eddine Mekrane">
-<meta property="og:description" content="Élève ingénieur backend, cloud et DevOps à l'ENSA Marrakech. Projets, expériences et contact.">
+<meta property="og:description" content="Full-stack Java et Angular, cloud et DevOps. Élève ingénieur en dernière année à l'ENSA Marrakech, disponible pour un stage PFE à partir de février 2027.">
+<meta property="og:image" content="https://bahaeeddine15.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://bahaeeddine15.github.io/fr/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2732%27%20fill%3D%27%237d6bff%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2742%27%20text-anchor%3D%27middle%27%20font-family%3D%27Georgia%2Cserif%27%20font-style%3D%27italic%27%20font-size%3D%2728%27%20fill%3D%27%23fff%27%3EBM%3C/text%3E%3C/svg%3E">
 <link rel="alternate" hreflang="en" href="../">
 <link rel="alternate" hreflang="fr" href="./">
 <title>Bahae Eddine Mekrane</title>
-<meta name="description" content="Portfolio de Bahae Eddine Mekrane, élève ingénieur en dernière année de Génie Informatique à l'ENSA Marrakech : backend, cloud et DevOps.">
+<meta name="description" content="Portfolio de Bahae Eddine Mekrane, élève ingénieur en dernière année à l'ENSA Marrakech : full-stack Java et Angular, cloud et DevOps.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout concept: two columns. A sticky left column holds the name, status and menu; the right column scrolls through the work. Each featured project opens with a visual built from its own code: a deploy log, a model comparison, a transfer receipt, an AI pipeline. Dark ink ground, Majorelle blue accent from Marrakech, a lemon highlight used once or twice. */
+/* Layout concept: two columns. A sticky left column holds the name, status and menu; the right column scrolls through the work. Each featured project opens with a working visual built from its own code: a fee calculator, a CI pipeline, a replayable deploy log, a model comparison, an AI pipeline. Dark ink ground, Majorelle blue accent from Marrakech, a lemon highlight used once or twice. */
 :root {
   --bg: #0a0c16;
   --panel: #10142a;
@@ -228,6 +233,55 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
 .node.hl { border-color: var(--accent); box-shadow: 0 0 22px rgba(125,107,255,0.25); }
 .arr { color: var(--accent); }
 
+/* Project filters */
+[hidden] { display: none !important; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -6px 0 22px; }
+.fbtn {
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); background: transparent;
+  border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 13px; min-height: 36px; cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.fbtn span { color: var(--dim); margin-left: 4px; font-variant-numeric: tabular-nums; }
+.fbtn:hover { color: var(--ink); border-color: var(--accent); }
+.fbtn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.fbtn.on span { color: rgba(255,255,255,0.72); }
+.priv { color: var(--dim); }
+
+/* Replayable log, animated chart */
+.replay { margin-left: auto; font: inherit; color: var(--muted); background: transparent; border: 1px solid var(--line-2); border-radius: 6px; padding: 2px 9px; cursor: pointer; }
+.replay:hover { color: var(--ink); border-color: var(--accent); }
+.term pre.run .ln:not(.on) { visibility: hidden; }
+.plot .dot, .plot .val { transition: left 1.1s cubic-bezier(.2,.7,.2,1), opacity .4s .7s; }
+.plot.pre .dot, .plot.pre .val { left: 0 !important; }
+.plot.pre .val { opacity: 0; transition: none; }
+
+/* Pipeline stages + test bar (TaskFlow) */
+.stages { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 6px; font-family: var(--font-mono); font-size: 12px; }
+.stages li { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line-2); background: #0a0d1d; border-radius: 9px; padding: 7px 10px; color: var(--ink); transition: opacity .3s, border-color .3s, box-shadow .3s; }
+.stages li::before { content: "✓"; color: var(--ok); font-size: 11px; width: 10px; text-align: center; }
+.stages li small { color: var(--dim); font-size: 10.5px; }
+.stages.run li:not(.done) { opacity: 0.4; }
+.stages.run li:not(.done)::before { content: "○"; color: var(--dim); }
+.stages.run li.now { opacity: 1; border-color: var(--accent); box-shadow: 0 0 18px rgba(125,107,255,0.28); }
+.stages.run li.now::before { content: "●"; color: var(--accent); }
+.tbar { display: flex; gap: 3px; height: 14px; }
+.tbar i { display: block; min-width: 0; border-radius: 3px; }
+.tbar i:nth-child(1), .tleg li:nth-child(1)::before { background: #7d6bff; }
+.tbar i:nth-child(2), .tleg li:nth-child(2)::before { background: #a89dff; }
+.tbar i:nth-child(3), .tleg li:nth-child(3)::before { background: #574ac9; }
+.tbar i:nth-child(4), .tleg li:nth-child(4)::before { background: #d9d4ff; }
+.tleg { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.tleg li { display: inline-flex; align-items: center; gap: 6px; }
+.tleg li::before { content: ""; width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.tleg b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Fee calculator (Okane) */
+.calc { flex: 1 1 220px; min-width: 0; }
+.calc label { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.calc output { color: var(--ink); font-variant-numeric: tabular-nums; }
+.calc input[type=range] { display: block; width: 100%; margin: 0 0 16px; accent-color: var(--accent); cursor: pointer; }
+.receipt dd { font-variant-numeric: tabular-nums; }
+
 /* Case study */
 .case { border: 1px solid var(--line); border-radius: 18px; padding: 30px 28px 32px; background: linear-gradient(180deg, rgba(21,26,52,0.9), rgba(16,20,42,0.5)); }
 .case h2 { margin-bottom: 12px; }
@@ -278,6 +332,9 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
 .sk { border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; background: rgba(16,20,42,0.55); min-width: 0; }
 .sk h3 { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 400; margin-bottom: 8px; }
 .sk p { margin: 0; font-size: 14.5px; color: var(--ink); line-height: 1.7; }
+.sk.wide { grid-column: 1 / -1; background: transparent; border-style: dashed; }
+.sk.wide h3 { color: var(--dim); }
+.sk.wide p { color: var(--muted); }
 
 /* Contact */
 .contact h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.02; letter-spacing: -0.045em; margin-bottom: 18px; }
@@ -390,8 +447,8 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
         <div class="avatar" id="avatar"><span aria-hidden="true">BM</span><img id="photo" src="../assets/photo.jpg" alt="Bahae Eddine Mekrane"></div>
         <h1>Bahae Eddine Mekrane</h1>
       </div>
-      <p class="role">Backend, cloud &amp; DevOps · <span class="serif">élève ingénieur</span></p>
-      <p class="pitch">Je construis des backends Spring Boot et Python, puis les pipelines et les clusters qui les déploient.</p>
+      <p class="role">Full-stack Java / Angular &amp; DevOps, <span class="serif">élève ingénieur</span></p>
+      <p class="pitch">Je construis des API Spring Boot et des applications Angular, puis je les déploie avec Docker, Jenkins et Azure.</p>
       <div class="status"><span class="pulse"></span>Disponible pour un stage PFE de 6 mois · février 2027</div>
       <nav aria-label="Sections">
         <ul class="nav">
@@ -419,9 +476,9 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
   <main class="main">
     <section id="about" class="about">
       <span class="kick">// à propos</span>
-      <p>Je suis élève ingénieur en dernière année de <b>Génie Informatique</b> à l'<b>ENSA Marrakech</b>. L'essentiel de mon travail se situe côté backend : des API REST en <b>Java et Spring Boot</b> ou en <b>Python et FastAPI</b>, et leur mise en production avec <b>Docker, Jenkins, Terraform, Kubernetes et Azure</b>.</p>
-      <p>Récemment, j'ai construit une petite PaaS interne sur Azure AKS, un pipeline MLOps de détection de fraude bancaire et une plateforme de transfert d'argent avec un portail par rôle. J'ai fait des stages en développement backend chez CODE212 et en data science chez Norsys Afrique, et configuré Sales Cloud et Service Cloud dans un projet Salesforce.</p>
-      <p>En dehors du code, j'ai présidé deux fois le comité d'organisation du Career Expo de l'ENSA Marrakech et représenté Oracle au GITEX Africa.</p>
+      <p>Je suis élève ingénieur en dernière année de <b>Génie Informatique</b> à l'<b>ENSA Marrakech</b>. L'essentiel de mon travail est du full-stack Java : des API REST en <b>Spring Boot</b> avec des interfaces <b>Angular</b>, couvertes par des tests JUnit et Mockito, puis conteneurisées et déployées avec <b>Docker, Jenkins et Azure</b>.</p>
+      <p>Récemment, j'ai travaillé sur une plateforme de transfert d'argent avec un portail par rôle, une API de gestion de tâches avec 71 tests automatisés et un pipeline CI/CD complet vers Azure, et une petite plateforme interne de déploiement sur Kubernetes. J'ai fait des stages en développement backend chez CODE212 et en data science chez Norsys Afrique, et configuré Sales Cloud et Service Cloud dans un projet Salesforce.</p>
+      <p>En dehors du code, j'ai présidé deux fois le comité d'organisation du Career Expo de l'ENSA Marrakech, dirigé le club à l'origine d'un hackathon de 12 heures avec une vingtaine d'équipes, et représenté Oracle au GITEX Africa.</p>
     </section>
 
     <section id="experience">
@@ -465,20 +522,92 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
 
     <section id="projects">
       <span class="kick">// projets</span>
-      <h2>Quatre projets, menés <span class="serif">de bout en bout</span></h2>
+      <h2>Des projets menés <span class="serif">de bout en bout</span></h2>
+      <div class="filters" role="group" aria-label="Filtrer les projets">
+        <button class="fbtn on" type="button" data-f="all" aria-pressed="true">Tous <span>5</span></button>
+        <button class="fbtn" type="button" data-f="fullstack" aria-pressed="false">Full-stack <span>3</span></button>
+        <button class="fbtn" type="button" data-f="devops" aria-pressed="false">DevOps <span>3</span></button>
+        <button class="fbtn" type="button" data-f="data" aria-pressed="false">Data &amp; IA <span>2</span></button>
+      </div>
       <div class="projects">
 
-        <article class="proj">
+        <article class="proj" data-tags="fullstack">
+          <div class="viz">
+            <span class="viz-cap">Testez la règle de tarification</span>
+            <div class="receipt-wrap">
+              <div class="receipt" id="receipt" data-locale="fr-FR" aria-label="Reçu de transfert illustratif">
+                <span class="stamp pending">PENDING</span>
+                <span class="stamp paid">PAID</span>
+                <h4>Reçu de transfert</h4>
+                <span class="note">Grille tarifaire illustrative</span>
+                <span class="code">ABC12345</span>
+                <dl>
+                  <div class="r"><dt>Envoyé</dt><dd id="rc-sent">100,00</dd></div>
+                  <div class="r"><dt>Frais fixes</dt><dd id="rc-fixed">2,00</dd></div>
+                  <div class="r"><dt>Commission 1,5 %</dt><dd id="rc-fee">1,50</dd></div>
+                  <div class="r tot"><dt>Reçu</dt><dd id="rc-recv">96,50</dd></div>
+                </dl>
+              </div>
+              <div class="calc">
+                <label for="amt"><span>Montant à envoyer</span><output id="amt-out" for="amt">100,00</output></label>
+                <input id="amt" type="range" min="10" max="2000" step="10" value="100">
+                <div class="formula">
+                  <b>cost</b> = fixedCost<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ amount × percentageFee<br>
+                  <b>received</b> = amount − cost<br>
+                  <span class="y">payoutCode</span> = 8 caractères, unique
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top"><span class="proj-kind">Full-stack · Finance · Projet d'équipe</span><span class="proj-kind">3 portails</span></div>
+            <h3>Okane Transfer</h3>
+            <p>Une plateforme de transfert d'argent avec des portails séparés pour les admins, les agents et les clients. Les agents envoient et paient les transferts, les clients les suivent, et les admins gèrent les corridors, les grilles tarifaires, les caisses et le journal d'audit.</p>
+            <ul class="tags"><li>Spring 6</li><li>Spring Security</li><li>JWT</li><li>JPA / Hibernate</li><li>PostgreSQL</li><li>Angular</li></ul>
+            <div class="proj-links">
+              <a href="#okane">lire l'étude de cas ↓</a>
+              <a href="https://github.com/Bahaeeddine15/Okane_Transfert_Deploy" target="_blank" rel="noopener">dépôt de déploiement frontend ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj" data-tags="fullstack devops">
+          <div class="viz">
+            <span class="viz-cap">Pipeline à chaque push</span>
+            <ol class="stages" id="stages" aria-label="Étapes du pipeline Jenkins : checkout, build et tests, image Docker, push vers le registre, déploiement, smoke test">
+              <li>Checkout</li>
+              <li>Build &amp; tests<small>71 tests</small></li>
+              <li>Image Docker</li>
+              <li>Push vers ACR</li>
+              <li>Déploiement</li>
+              <li>Smoke test<small>/actuator/health</small></li>
+            </ol>
+            <div role="img" aria-label="71 tests : 25 sur les services, 23 sur les contrôleurs, 17 sur les repositories, 6 sur le JWT">
+              <div class="tbar"><i style="flex:25"></i><i style="flex:23"></i><i style="flex:17"></i><i style="flex:6"></i></div>
+              <ul class="tleg"><li><b>25</b> services</li><li><b>23</b> contrôleurs</li><li><b>17</b> repositories</li><li><b>6</b> JWT</li></ul>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top"><span class="proj-kind">Full-stack · CI/CD</span><span class="proj-kind">71 tests automatisés</span></div>
+            <h3>TaskFlow</h3>
+            <p>Un gestionnaire de tâches avec authentification JWT, assignation de tâches entre utilisateurs et panneau d'administration, construit comme une API Spring Boot avec une interface Angular. L'API est couverte par 71 tests automatisés sur les repositories, les services, les contrôleurs et la couche JWT.</p>
+            <p>Chaque push sur main lance un pipeline Jenkins : build et tests, image Docker, push vers Azure Container Registry, déploiement sur Azure Container Apps, puis un smoke test sur l'endpoint de santé. L'application Angular est servie depuis Azure Storage.</p>
+            <ul class="tags"><li>Java 21</li><li>Spring Boot</li><li>Spring Security</li><li>PostgreSQL</li><li>Angular</li><li>JUnit 5</li><li>Mockito</li><li>Docker</li><li>Jenkins</li><li>Azure</li></ul>
+            <div class="proj-links"><span class="priv">Dépôt privé, code sur demande</span></div>
+          </div>
+        </article>
+
+        <article class="proj" data-tags="devops">
           <div class="viz">
             <span class="viz-cap">Exemple d'exécution</span>
-            <div class="term" role="img" aria-label="Exemple d'exécution DeployStage : job Jenkins créé, namespace provisionné avec quota et network policy, build réussi">
-              <div class="term-bar"><i></i><i></i><i></i><span>deploystage-api</span></div>
-<pre><span class="p">$</span> POST /api/deploy/deploy?jobName=<span class="y">shop</span>&amp;repoUrl=…/shop.git
-<span class="k">jenkins</span>job "shop" created, reads the repo's Jenkinsfile
-<span class="k">k8s</span>namespace deploystage-shop
-<span class="k"></span>quota   cpu 500m · memory 512Mi · 5 pods
-<span class="k"></span>policy  deny-cross-namespace
-<span class="k">build</span>#1  QUEUED → RUNNING → <span class="ok">SUCCESS</span> <span class="caret"></span></pre>
+            <div class="term">
+              <div class="term-bar"><i></i><i></i><i></i><span>deploystage-api</span><button class="replay" id="replay" type="button" aria-label="Rejouer le déploiement">↻ rejouer</button></div>
+<pre id="tlog" role="img" aria-label="Exemple d'exécution DeployStage : job Jenkins créé, namespace provisionné avec quota et network policy, build réussi"><span class="ln"><span class="p">$</span> POST /api/deploy/deploy?jobName=<span class="y">shop</span>&amp;repoUrl=…/shop.git
+</span><span class="ln"><span class="k">jenkins</span>job "shop" created, reads the repo's Jenkinsfile
+</span><span class="ln"><span class="k">k8s</span>namespace deploystage-shop
+</span><span class="ln"><span class="k"></span>quota   cpu 500m · memory 512Mi · 5 pods
+</span><span class="ln"><span class="k"></span>policy  deny-cross-namespace
+</span><span class="ln"><span class="k">build</span>#1  QUEUED → RUNNING → <span class="ok">SUCCESS</span> <span class="caret"></span></span></pre>
             </div>
           </div>
           <div class="proj-body">
@@ -496,10 +625,10 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
           </div>
         </article>
 
-        <article class="proj">
+        <article class="proj" data-tags="data devops">
           <div class="viz">
             <span class="viz-cap">AUC-PR sur le jeu de test</span>
-            <div class="plot" role="img" aria-label="AUC-PR : régression logistique 0,7199, XGBoost avec SMOTE 0,8610, XGBoost avec scale_pos_weight 0,8834. Objectif 0,80.">
+            <div class="plot" id="plot" role="img" aria-label="AUC-PR : régression logistique 0,7199, XGBoost avec SMOTE 0,8610, XGBoost avec scale_pos_weight 0,8834. Objectif 0,80.">
               <div class="plot-row"><div class="nm">Régression logistique</div><div class="track"><span class="target" style="left:50%"></span><span class="dot" style="left:23.3%"></span><span class="val" style="left:23.3%">0,7199</span></div></div>
               <div class="plot-row"><div class="nm">XGBoost + SMOTE</div><div class="track"><span class="target" style="left:50%"></span><span class="dot" style="left:72%"></span><span class="val" style="left:72%">0,8610</span></div></div>
               <div class="plot-row win"><div class="nm">XGBoost + scale_pos_weight</div><div class="track"><span class="target" style="left:50%"></span><span class="dot" style="left:79.5%"></span><span class="val" style="left:79.5%">0,8834</span></div></div>
@@ -516,43 +645,7 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
           </div>
         </article>
 
-        <article class="proj">
-          <div class="viz">
-            <span class="viz-cap">Règle de tarification</span>
-            <div class="receipt-wrap">
-              <div class="receipt" aria-label="Reçu de transfert illustratif">
-                <span class="stamp pending">PENDING</span>
-                <span class="stamp paid">PAID</span>
-                <h4>Reçu de transfert</h4>
-                <span class="note">Valeurs illustratives</span>
-                <span class="code">ABC12345</span>
-                <dl>
-                  <div class="r"><dt>Envoyé</dt><dd>100,00</dd></div>
-                  <div class="r"><dt>Frais fixes</dt><dd>2,00</dd></div>
-                  <div class="r"><dt>Commission 1,5 %</dt><dd>1,50</dd></div>
-                  <div class="r tot"><dt>Reçu</dt><dd>96,50</dd></div>
-                </dl>
-              </div>
-              <div class="formula">
-                <b>cost</b> = fixedCost<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ amount × percentageFee<br>
-                <b>received</b> = amount − cost<br>
-                <span class="y">payoutCode</span> = 8 caractères, unique
-              </div>
-            </div>
-          </div>
-          <div class="proj-body">
-            <div class="proj-top"><span class="proj-kind">Full-stack · Finance · Projet d'équipe</span><span class="proj-kind">3 portails</span></div>
-            <h3>Okane Transfer</h3>
-            <p>Une plateforme de transfert d'argent avec des portails séparés pour les admins, les agents et les clients. Les agents envoient et paient les transferts, les clients les suivent, et les admins gèrent les corridors, les grilles tarifaires, les caisses et le journal d'audit.</p>
-            <ul class="tags"><li>Spring 6</li><li>Spring Security</li><li>JWT</li><li>JPA / Hibernate</li><li>PostgreSQL</li><li>Angular</li></ul>
-            <div class="proj-links">
-              <a href="#okane">lire l'étude de cas ↓</a>
-              <a href="https://github.com/Bahaeeddine15/Okane_Transfert_Deploy" target="_blank" rel="noopener">dépôt de déploiement frontend ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="proj">
+        <article class="proj" data-tags="data fullstack">
           <div class="viz">
             <span class="viz-cap">Fonctionnement</span>
             <div class="pipe" role="img" aria-label="Pipeline : le CV et l'offre passent par le score de correspondance SBERT, puis par le LLM Groq, qui rédige un CV optimisé ATS et une lettre de motivation">
@@ -622,24 +715,19 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
           <div class="note"><h4>Règles métier dans les services</h4><p>Les contrôleurs appellent des interfaces de service au-dessus des repositories Spring Data, avec des DTO de requête et de réponse, Bean Validation et des transactions.</p></div>
           <div class="note"><h4>Caisse et audit</h4><p>Une caisse journalière par agent avec solde d'ouverture et de clôture, des mouvements d'envoi et de paiement, et un journal d'audit consultable par transfert, agent ou agence.</p></div>
           <div class="note"><h4>API documentée</h4><p>SpringDoc génère la spécification OpenAPI et une page Swagger UI, avec une documentation écrite pour les corridors, les devises et les grilles tarifaires.</p></div>
-          <div class="note"><h4>Version déployée</h4><p>Hugging Face bloque le SMTP, donc les emails passent par l'API HTTP de Brevo. Les taux de change viennent d'une API externe et sont mis en cache en mémoire.</p></div>
+          <div class="note"><h4>Version déployée</h4><p>Hugging Face bloque le SMTP, donc les emails passent par l'API HTTP de Brevo. Les taux de change sont actualisés toutes les 24 heures depuis une API externe et mis en cache en mémoire, avec une API de secours puis les derniers taux enregistrés en dernier recours.</p></div>
         </div>
       </div>
     </section>
 
     <section id="more">
       <span class="kick">// autres projets</span>
-      <h2>Data et <span class="serif">backend</span></h2>
+      <h2>Projets <span class="serif">data</span></h2>
       <div class="rows">
         <div class="row">
           <div class="when">Projet de groupe</div>
           <div><h3>Analyse de sentiments sur AWS</h3><p>Pipeline event-driven de publications multilingues simulées via l'API Gemini, ingérées par SQS dans un data lake S3. Keras et Word2Vec (79 % de précision) comparés à XLM-RoBERTa, avec des dashboards Streamlit qui interrogent Athena.</p></div>
           <a class="go" href="https://github.com/aya59drh/sentiment-analysis-aws" target="_blank" rel="noopener">dépôt ↗</a>
-        </div>
-        <div class="row">
-          <div class="when">Personnel</div>
-          <div><h3>TaskFlow API</h3><p>API de gestion de tâches en Spring Boot avec JPA et PostgreSQL, testée avec JUnit 5, Mockito et MockMvc sous couverture JaCoCo. Jenkins la construit, pousse l'image vers Azure Container Registry et la déploie sur Azure Container Apps.</p></div>
-          <span></span>
         </div>
         <div class="row">
           <div class="when">Projet de groupe</div>
@@ -657,7 +745,7 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
         <div class="row"><div class="when">2021 – 2022</div><div><h3>Baccalauréat, Sciences Physiques et Chimie</h3><p>Lycée Abdellah Laaroui, Fès.</p></div><span></span></div>
         <div class="row"><div class="when">Sept. 2026</div><div><h3>Object-Oriented Programming in Java</h3><p>Certification, Educative.</p></div><span></span></div>
         <div class="row"><div class="when">2026</div><div><h3>Hôte représentant Oracle · GITEX Africa</h3></div><span></span></div>
-        <div class="row"><div class="when">2026</div><div><h3>Organisateur · IT Day et GEMINI Hack Night</h3><p>ENSA Marrakech.</p></div><span></span></div>
+        <div class="row"><div class="when">2026</div><div><h3>Organisateur · GEMINI Hack Night et IT Day</h3><p>En tant que président du club organisateur, a piloté la Hack Night : un hackathon de nuit de 12 heures à l'ENSA Marrakech, avec une vingtaine d'équipes, deux jurys et 6 finalistes.</p></div><span></span></div>
         <div class="row"><div class="when">2025</div><div><h3>Président du comité d'organisation · Career Expo 5</h3><p>Également représentant des étudiants du cycle ingénieur.</p></div><span></span></div>
         <div class="row"><div class="when">2024</div><div><h3>Président du comité d'organisation · Career Expo 4 et Semaine d'intégration</h3><p>Également représentant des étudiants du cycle préparatoire.</p></div><span></span></div>
       </div>
@@ -667,21 +755,22 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
       <span class="kick">// compétences</span>
       <h2>Mes <span class="serif">outils</span></h2>
       <div class="skills">
-        <div class="sk"><h3>Langages</h3><p>Java · Python · TypeScript · JavaScript · PHP · SQL</p></div>
-        <div class="sk"><h3>Backend</h3><p>Spring Boot · Spring Security · JPA / Hibernate · FastAPI · Django · Laravel · JWT</p></div>
-        <div class="sk"><h3>Cloud &amp; DevOps</h3><p>Docker · Jenkins · Kubernetes (AKS) · Terraform · Azure · Linux · Prometheus · Grafana</p></div>
-        <div class="sk"><h3>Data &amp; AI</h3><p>scikit-learn · XGBoost · Keras · MLflow · Hugging Face · Groq · NLP · AWS SQS, S3, Athena</p></div>
+        <div class="sk"><h3>Langages</h3><p>Java · TypeScript · JavaScript · SQL</p></div>
+        <div class="sk"><h3>Backend</h3><p>Spring Boot · Spring Security · JPA / Hibernate · REST APIs · JWT</p></div>
         <div class="sk"><h3>Frontend</h3><p>Angular · React · React Native / Expo · HTML · CSS</p></div>
-        <div class="sk"><h3>Bases de données &amp; outils</h3><p>PostgreSQL · MySQL · Git · UML</p></div>
-        <div class="sk"><h3>Tests &amp; CRM</h3><p>JUnit 5 · Mockito · MockMvc · JaCoCo · Salesforce Sales &amp; Service Cloud</p></div>
+        <div class="sk"><h3>Cloud &amp; DevOps</h3><p>Docker · Jenkins · Azure · CI/CD</p></div>
+        <div class="sk"><h3>Tests</h3><p>JUnit 5 · Mockito · MockMvc · JaCoCo</p></div>
+        <div class="sk"><h3>Bases de données &amp; CRM</h3><p>PostgreSQL · MySQL · Salesforce Sales &amp; Service Cloud</p></div>
+        <div class="sk"><h3>Outils</h3><p>Git · Linux · UML</p></div>
         <div class="sk"><h3>Langues</h3><p>Arabe (maternelle) · Français · Anglais</p></div>
+        <div class="sk wide"><h3>Aussi utilisés en projet</h3><p>Python · FastAPI · Kubernetes (AKS) · Terraform · Prometheus · Grafana · scikit-learn · XGBoost · MLflow · AWS SQS, S3, Athena</p></div>
       </div>
     </section>
 
     <section id="contact" class="contact">
       <span class="kick">// contact</span>
       <h2>Vous cherchez un stagiaire PFE <span class="serif">à partir de février 2027&nbsp;?</span></h2>
-      <p>Six mois, en développement backend, DevOps et cloud, data ou Salesforce. Basé à Marrakech, mobile au Maroc et à l'international.</p>
+      <p>Six mois, en développement full-stack, DevOps et cloud, data ou Salesforce. Basé à Marrakech, mobile au Maroc et à l'international.</p>
       <div class="mail">
         <span class="addr" id="addr">mekranebahae153@gmail.com</span>
         <button class="copy" id="copy" type="button" data-copied="Copié" data-selected="Sélectionné, faites Ctrl+C">Copier l'email</button>
@@ -754,6 +843,89 @@ h2 .serif { color: var(--accent); font-size: 1.12em; }
   window.addEventListener('resize', fitSide);
   window.addEventListener('load', fitSide);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSide);
+
+  var hasIO = 'IntersectionObserver' in window;
+  function onView(el, fn, th) {
+    if (!el || reduce || !hasIO) return;
+    var o = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { o.disconnect(); fn(); }
+    }, { threshold: th || 0.5 });
+    o.observe(el);
+  }
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+
+  /* Project filters */
+  var fbtns = document.querySelectorAll('.fbtn');
+  var cards = document.querySelectorAll('.proj[data-tags]');
+  each(fbtns, function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      each(fbtns, function (x) {
+        x.classList.toggle('on', x === b);
+        x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+      });
+      each(cards, function (c) {
+        c.hidden = !(f === 'all' || (' ' + c.getAttribute('data-tags') + ' ').indexOf(' ' + f + ' ') >= 0);
+      });
+    });
+  });
+
+  /* Step-by-step replays: deploy log lines and pipeline stages */
+  function stepper(root, sel, onCls, gap) {
+    var timers = [];
+    return function () {
+      if (!root) return;
+      timers.forEach(clearTimeout); timers = [];
+      var items = root.querySelectorAll(sel);
+      each(items, function (it) { it.classList.remove(onCls); it.classList.remove('now'); });
+      root.classList.add('run');
+      each(items, function (it, i) {
+        timers.push(setTimeout(function () {
+          if (i > 0) { items[i - 1].classList.remove('now'); items[i - 1].classList.add(onCls); }
+          it.classList.add('now');
+          if (sel === '.ln') it.classList.add(onCls);
+        }, 250 + i * gap));
+      });
+      timers.push(setTimeout(function () {
+        each(items, function (it) { it.classList.remove('now'); it.classList.add(onCls); });
+        root.classList.remove('run');
+      }, 250 + items.length * gap));
+    };
+  }
+  var tlog = document.getElementById('tlog');
+  var playLog = stepper(tlog, '.ln', 'on', 520);
+  onView(tlog, playLog, 0.6);
+  var replay = document.getElementById('replay');
+  if (replay) replay.addEventListener('click', playLog);
+  var stages = document.getElementById('stages');
+  onView(stages, stepper(stages, 'li', 'done', 480), 0.6);
+
+  /* Chart: dots slide to their values when the chart scrolls into view */
+  var plot = document.getElementById('plot');
+  if (plot && !reduce && hasIO) {
+    plot.classList.add('pre');
+    onView(plot, function () { plot.classList.remove('pre'); }, 0.4);
+  }
+
+  /* Okane fee calculator: same rule as the pricing grid, on an illustrative grid */
+  var amt = document.getElementById('amt');
+  var receipt = document.getElementById('receipt');
+  if (amt && receipt) {
+    var loc = receipt.getAttribute('data-locale') || 'en-US';
+    var FIXED = 2, PCT = 0.015;
+    var fmt = function (n) {
+      try { return n.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      catch (e) { return n.toFixed(2); }
+    };
+    var put = function (id, n) { var el = document.getElementById(id); if (el) el.textContent = fmt(n); };
+    var update = function () {
+      var v = parseFloat(amt.value) || 0;
+      var fee = v * PCT;
+      put('rc-sent', v); put('rc-fixed', FIXED); put('rc-fee', fee); put('rc-recv', v - FIXED - fee); put('amt-out', v);
+    };
+    amt.addEventListener('input', update);
+    update();
+  }
 
   var photo = document.getElementById('photo');
   if (photo) {
